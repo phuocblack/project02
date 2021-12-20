@@ -15,7 +15,7 @@ namespace PROJECT_02
             //AdjacencyMatrix g = al.transformToAdjacencyMatrix();
             //g.showAdjacencyMatrix();
 
-            GraphUtils.FleuryAlgorithm(al);
+            GraphUtils.printEuler(al);
         }
     }
 }

@@ -64,8 +64,6 @@ namespace PROJECT_02
 
         public static void flueryAlgo(AdjacencyMatrix g, int start)
         {
-            _edge = edgeCount(g);
-            v_count = g.Size;
             for (int v = 0; v < g.Size; ++v)
             {
                 if (g.Matrix[start, v] != 0)
@@ -74,7 +72,7 @@ namespace PROJECT_02
                     if (isBridge(g, start, v))
                         v_count--;
                     int cnt = DFS(g, start, v, ref visited);
-                    if (Math.Abs(v_count - cnt) <= 3)
+                    if (Math.Abs(v_count - cnt) <= 2)
                     {
                         Console.Write("{0}--{1} ", start, v);
                         if (isBridge(g, v, start))
@@ -88,10 +86,12 @@ namespace PROJECT_02
             }
         }
 
-        public static void FleuryAlgorithm(AdjacencyList al)
+        public static void printEuler(AdjacencyList al)
         {
             AdjacencyMatrix g = al.transformToAdjacencyMatrix();
             int[] deg = countDegrees(g);
+            _edge = edgeCount(g);
+            v_count = g.Size;
 
             List<int> oddVertices = determineOddVertices(g, deg);
             if (oddVertices.Count == 0)
