@@ -14,6 +14,11 @@ namespace PROJECT_02
 
         public List<List<int>> AdjaList { get; set; }
 
+        public AdjacencyList()
+        {
+            this.AdjaList = new List<List<int>>();
+        }
+
         public AdjacencyList(int size)
         {
             this.AdjaList = new List<List<int>>();
@@ -24,8 +29,6 @@ namespace PROJECT_02
             }
         }
 
-
-
         public bool readAdjacencyList(string filename)
         {
             if (!File.Exists(filename))
@@ -35,6 +38,10 @@ namespace PROJECT_02
             }
             string[] lines = File.ReadAllLines(filename);
             this.Size = Int32.Parse(lines[0]);
+            for (int i = 0; i < this.Size; ++i)
+            {
+                this.AdjaList.Add(new List<int>());
+            }
             this.startPoint = Int32.Parse(lines[1]);
             this.AdjaList = new List<List<int>>();
             for (int i = 0; i < this.Size; ++i)

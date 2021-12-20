@@ -74,7 +74,7 @@ namespace PROJECT_02
                     if (isBridge(g, start, v))
                         v_count--;
                     int cnt = DFS(g, start, v, ref visited);
-                    if (Math.Abs(v_count - cnt) <= 2)
+                    if (Math.Abs(v_count - cnt) <= 3)
                     {
                         Console.Write("{0}--{1} ", start, v);
                         if (isBridge(g, v, start))
@@ -86,6 +86,70 @@ namespace PROJECT_02
                     }
                 }
             }
+        }
+
+        public static void FleuryAlgorithm(AdjacencyList al)
+        {
+            AdjacencyMatrix g = al.transformToAdjacencyMatrix();
+            int[] deg = countDegrees(g);
+
+            List<int> oddVertices = determineOddVertices(g, deg);
+            if (oddVertices.Count == 0)
+            {
+                //apply Fleury algo normal and print out Euler circuit (chu trinh Euler)
+                flueryAlgo(g, al.startPoint);
+            }
+            else if (oddVertices.Count == 2)
+            {
+                //check start vertice is one of 2 odd vertices (neu dinh bat dau la 1 trong 2 dinh bac le => ton tai duong di Euler)
+                if (oddVertices.Contains(al.startPoint))
+                {
+                    //apply Fleury algo normal and print out Euler trail (duong di Euler)
+                    flueryAlgo(g, al.startPoint);
+                }
+                else
+                {
+                    Console.WriteLine("Khong co loi giai.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Khong co loi giai.");
+            }
+        }
+
+        public static int[] countDegrees(AdjacencyMatrix g)
+        {
+            int[] degrees = new int[g.Size]; // Mang chua bac cua cac dinh
+            for (int i = 0; i < g.Size; i++)
+            {
+                int count = 0;
+                for (int j = 0; j < g.Size; j++)
+                {
+                    if (g.Matrix[i, j] != 0)
+                    {
+                        count += g.Matrix[i, j];
+                        if (i == j) // xet truong hop canh khuyen
+                            count += g.Matrix[i, i];
+                    }
+                    degrees[i] = count;
+                }
+            }
+
+            return degrees;
+        }
+
+        public static List<int> determineOddVertices(AdjacencyMatrix g, int[] degrees)
+        {
+            List<int> count = new List<int>();
+            for (int i = 0; i < g.Size; i++)
+            {
+                if (degrees[i] % 2 != 0)
+                {
+                    count.Add(i);
+                }
+            }
+            return count;
         }
 
     }

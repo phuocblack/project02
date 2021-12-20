@@ -10,6 +10,12 @@ namespace PROJECT_02
     {
         static void Main(string[] args)
         {
+            AdjacencyList al = new AdjacencyList();
+            al.readAdjacencyList("..//..//input-1.txt");
+            //AdjacencyMatrix g = al.transformToAdjacencyMatrix();
+            //g.showAdjacencyMatrix();
+
+            GraphUtils.FleuryAlgorithm(al);
         }
     }
 }
